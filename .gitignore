@@ -34,9 +34,9 @@ Thumbs.db
 *.sublime-workspace
 
 # MongoDB dumps
-dump/
-*.bson
-*.metadata.json
+# dump/ - Commenté pour inclure le dump dans le livrable
+# *.bson
+# *.metadata.json
 
 # Test coverage
 coverage/
