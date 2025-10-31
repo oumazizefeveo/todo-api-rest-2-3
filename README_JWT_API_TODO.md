@@ -48,8 +48,8 @@ Chaque utilisateur possède ses propres tâches protégées par un **token JWT**
 
 1. **Cloner le dépôt**
    ```bash
-   git clone https://github.com/<ton-utilisateur>/<ton-repo>.git
-   cd <ton-repo>
+   git clone git https://github.com/oumazizefeveo/API_REST_FEVEO.git
+   cd API_REST_FEVEO
    ```
 
 2. **Installer les dépendances**
@@ -57,12 +57,7 @@ Chaque utilisateur possède ses propres tâches protégées par un **token JWT**
    npm install
    ```
 
-3. **Créer un fichier `.env`**  
-   ```env
-   JWT_SECRET=ma_cle_super_secrete
-   ```
-
-4. **Lancer le serveur**
+3. **Lancer le serveur**
    ```bash
    node server.js
    ```
