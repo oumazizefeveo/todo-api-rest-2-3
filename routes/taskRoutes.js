@@ -1,7 +1,7 @@
 // routes/taskRoutes.js
 const express = require("express");
 const router = express.Router();
-const { authenticateToken } = require("../middleware/authMiddleware");
+const authenticateToken = require("../middleware/authMiddleware");
 const validateTask = require("../middleware/validateTask");
 const taskController = require("../controllers/taskController");
 

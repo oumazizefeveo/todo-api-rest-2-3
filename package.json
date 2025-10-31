@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "db:dump": "mongodump --db=api_todo --out=./dump",
+    "db:restore": "mongorestore --db=api_todo ./dump/api_todo"
   },
   "author": "Oumazize",
   "license": "ISC",
@@ -14,6 +16,7 @@
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "dotenv": "^16.4.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.2",

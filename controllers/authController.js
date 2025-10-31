@@ -2,7 +2,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-const JWT_SECRET = "ma_cle_secrete_ultra_securisee";
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1h';
+
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET non défini dans les variables d\'environnement');
+}
 
 // Inscription
 exports.register = async (req, res) => {
@@ -19,7 +24,14 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({ email, password: hashedPassword });
 
-    res.status(201).json({ message: "Utilisateur créé avec succès.", user: newUser });
+    // Ne jamais renvoyer le mot de passe
+    const userResponse = {
+      _id: newUser._id,
+      email: newUser.email,
+      createdAt: newUser.createdAt
+    };
+
+    res.status(201).json({ message: "Utilisateur créé avec succès.", user: userResponse });
   } catch (err) {
     res.status(500).json({ error: "Erreur serveur", details: err.message });
   }
@@ -36,7 +48,7 @@ exports.login = async (req, res) => {
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(401).json({ error: "Mot de passe incorrect." });
 
-    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
     res.json({ message: "Connexion réussie.", token });
   } catch (err) {
     res.status(500).json({ error: "Erreur serveur", details: err.message });

@@ -2,7 +2,11 @@
 const jwt = require('jsonwebtoken');
 
 // Même clé secrète utilisée pour signer les tokens
-const JWT_SECRET = "ma_cle_secrete_ultra_securisee";
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET non défini dans les variables d\'environnement');
+}
 
 function authenticateToken(req, res, next) {
   // Récupère l’en-tête Authorization (ex: "Bearer eyJhbGciOi...")
